@@ -39,9 +39,10 @@ GUI_User_Name = "PKevin"
 
 AIVT_Character_path = "AIVT_Character"
 AIVT_Character_prompt_filenames = [
-    'character_prompt_01.txt', 'character_prompt_02.txt',
-    'character_prompt_03.txt', 'character_prompt_04.txt',
-    'character_prompt_05.txt'
+    'character_prompt_01.txt',
+    # 'character_prompt_02.txt',
+    # 'character_prompt_03.txt', 'character_prompt_04.txt',
+    # 'character_prompt_05.txt'
     ]
 AIVT_Character_Names = []
 AIVT_Using_character = ""
