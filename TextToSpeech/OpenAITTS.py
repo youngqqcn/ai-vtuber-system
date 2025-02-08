@@ -1,5 +1,7 @@
 import sys
 import os
+
+from TextToSpeech.elevenlabsTTS import text_to_speech_file
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import openai
@@ -19,11 +21,11 @@ OpenAITTS_Voice_list = ["alloy", "echo", "fable", "onyx", "nova", "shimmer", ]
 OpenAITTS_Model_list = ["tts-1", "tts-1-hd", ]
 
 openaitts_parameters = {
-    "output_path":"Audio/output_openaitts_01.wav",
+    "output_path":"Audio/output_openaitts_01.mp3",
     "model":"tts-1",
     "voice":"alloy",
     "speed":1.00,
-    "format":"wav",
+    "format":"mp3",
     "timeout":10.0,
 }
 
@@ -36,7 +38,7 @@ openaitts_parameters = {
 
 
 
-def openaitts(
+def openaitts_bak(
         text="",
         output_path="Audio/output_openaitts_01.wav",
         model="tts-1",
@@ -63,6 +65,25 @@ def openaitts(
     except Exception as e:
         print(f"Error openai tts\n{e}\n")
 
+
+def openaitts(
+        text="",
+        output_path="Audio/output_openaitts_01.mp3",
+        model="tts-1",
+        voice="alloy",
+        speed=1.00,
+        format="mp3",
+        timeout=10.0,
+        ):
+
+    
+
+    try:
+        # response.write_to_file(output_path)
+        text_to_speech_file(text, output_path)
+
+    except Exception as e:
+        print(f"Error openai tts\n{e}\n")
 
 
 
