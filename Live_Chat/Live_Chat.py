@@ -25,11 +25,11 @@ import My_Tools.Token_Calculator as tokenC
 Live_Chat_Status = {
     "YouTube_live_chat": False,
     "YouTube_live_chat_connect_fail_count": 50,
-    "Twitch_live_chat": False,
+    "Twitch_live_chat": True,
     "llm_request_checker": False,
 }
 
-live_chat_status = {"Twitch_live_chat": False,}
+live_chat_status = {"Twitch_live_chat": True,}
 
 Live_chat_parameters = {
     "yt_channel_name": "AI VTuber Dev PKevin",
@@ -51,10 +51,10 @@ Live_chat_parameters = {
     "tw_live_chat_ban_names": [],
     "tw_live_chat_log": True,
     "tw_live_chat_read_chat_now": False,
-    "tw_response_chatroom": False,
+    "tw_response_chatroom": True,
     "tw_response_owner": False,
     "tw_response_vip": False,
-    "tw_response_individual": False,
+    "tw_response_individual": True,
     "tw_wait_list_max": 10,
     "tw_chat_max_tokens": 128,
     "tw_chat_max_response": 5,
@@ -248,9 +248,11 @@ class Twitch_live_chat(twitch_commands.Bot):
 
 
 def Twitch_live_chat_get_comments():
-    global Live_Chat_Status, Live_chat_parameters, TW_LC_raw_list, TW_LC_wait_list
+    global Live_Chat_Status, Live_chat_parameters, TW_LC_raw_list, TW_LC_wait_list, Live_Chat_LLM_wait_list
 
     TW_LC_wait_list = []
+    Live_Chat_LLM_wait_list=[]
+
 
     while Live_Chat_Status["Twitch_live_chat"]:
         time.sleep(0.1)
@@ -279,13 +281,27 @@ def Twitch_live_chat_get_comments():
                     else:
                         if Live_chat_parameters["tw_live_chat_log"]:
                             print(f"!!! *{chat_author}* comment beyond max tokens - Twitch Live Chat !!!")
-                    
+
+                # if chat_list:
+                #     TW_LC_wait_list.extend(chat_list)
+                #     if Live_chat_parameters["tw_live_chat_log"]:
+                #         chat_c = "\n\n".join([f"{key} : {d[key]}" for d in chat_list for key in d])
+                #         print(f"\nTwitch Live Chat ----------\n\n{chat_c}\n\n----------\n")
+                #     print('Twitch_live_chat_get_comments TW_LC_wait_list长度: {}'.format(TW_LC_wait_list))
+
                 if chat_list:
                     TW_LC_wait_list.extend(chat_list)
+
+                    # 直接插入到 Live_Chat_LLM_wait_list, 不过滤
+                    for d in chat_list:
+                        for k in d:
+                            Live_Chat_LLM_wait_list.append({'role':'twitch_chat', 'content':d[k]})
+
                     if Live_chat_parameters["tw_live_chat_log"]:
                         chat_c = "\n\n".join([f"{key} : {d[key]}" for d in chat_list for key in d])
                         print(f"\nTwitch Live Chat ----------\n\n{chat_c}\n\n----------\n")
-        
+                    print('Twitch_live_chat_get_comments TW_LC_wait_list长度: {}'.format(TW_LC_wait_list))
+
         except:
             '''
             Never gonna give you up
@@ -298,8 +314,10 @@ def Twitch_live_chat_get_comments():
 
 def Twitch_live_chat_pick_comments():
     global Live_Chat_Status, Live_chat_parameters, TW_LC_wait_list, Live_Chat_LLM_wait_list
+    print('====Twitch_live_chat_pick_comments===')
 
     while Live_Chat_Status["Twitch_live_chat"]:
+        print("Twitch_live_chat_pick_comments Live_Chat_LLM_wait_list 长度 {}".format(len(Live_Chat_LLM_wait_list)))
         if Live_chat_parameters["tw_response_chatroom"] and TW_LC_wait_list:
             c = len(TW_LC_wait_list)
             chat_list = []
@@ -308,7 +326,7 @@ def Twitch_live_chat_pick_comments():
                 chat_list.append(TW_LC_wait_list.pop(0))
 
             chat_list.reverse()
-            
+
             owner_name = Live_chat_parameters["tw_channel_name"]
             owner_chat_now = None
 
@@ -318,7 +336,7 @@ def Twitch_live_chat_pick_comments():
                         if owner_name in d:
                             owner_chat_now = d
                             break
-                    
+
                     chat_list = [d for d in chat_list if owner_name not in d]
 
                     name = list(owner_chat_now.keys())[0]
@@ -338,7 +356,7 @@ def Twitch_live_chat_pick_comments():
                             if vip_name in d:
                                 vip_chat_now = d
                                 break
-                        
+
                         chat_list = [d for d in chat_list if vip_name not in d]
 
                         name = list(vip_chat_now.keys())[0]
@@ -366,7 +384,7 @@ def Twitch_live_chat_pick_comments():
                     chat_s = "\n".join([f"{key} : {d[key]}" for d in selected_comments for key in d])
                     Live_Chat_LLM_wait_list.append({"role": "twitch_chat", "content": chat_s})
 
-        time.sleep(0.1)
+        time.sleep(1)
 
 
 
@@ -393,10 +411,13 @@ def Twitch_LiveChat_boot_on():
     TW_lcgc = threading.Thread(target=Twitch_live_chat_get_comments)
     TW_lcgc.start()
 
-    TW_lcpc = threading.Thread(target=Twitch_live_chat_pick_comments)
-    TW_lcpc.start()
+    # 暂时不过滤
+    # TW_lcpc = threading.Thread(target=Twitch_live_chat_pick_comments)
+    # TW_lcpc.start()
+    # print('启动livechat 恢复')
 
-    if not Live_Chat_Status["llm_request_checker"]:
+    # if not Live_Chat_Status["llm_request_checker"]:
+    if True:
         Live_Chat_Status["llm_request_checker"] = True
         LC_llmc = threading.Thread(target=Live_Chat_LLM_checker)
         LC_llmc.start()
@@ -406,11 +427,14 @@ def Twitch_LiveChat_boot_on():
 
 
 def Live_Chat_LLM_checker():
+    print("=========Live_Chat_LLM_checker==========")
     global Live_Chat_Status, Live_chat_parameters, Live_Chat_LLM_wait_list
 
-    Live_Chat_LLM_wait_list = []
+    # Live_Chat_LLM_wait_list = []
 
     while Live_Chat_Status["YouTube_live_chat"] or Live_Chat_Status["Twitch_live_chat"]:
+        print("检查评论列表")
+        print("Live_Chat_LLM_wait_list 长度 {}".format(len(Live_Chat_LLM_wait_list)))
         if Live_Chat_LLM_wait_list:
             ans_requst = Live_Chat_LLM_wait_list.pop(0)
             chat_role = ans_requst["role"]
@@ -435,7 +459,7 @@ def Live_Chat_LLM_checker():
                     }
                 )
 
-        time.sleep(0.1)
+        time.sleep(1)
 
     Live_Chat_Status["llm_request_checker"] = False
 

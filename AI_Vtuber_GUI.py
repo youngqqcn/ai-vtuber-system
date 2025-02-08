@@ -307,7 +307,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # Twitch response chatroom
         p = "tw"
-        enble = GUI_config["Live_Chat"][f"{p}_response_chatroom"] == "True"
+        enble = True #GUI_config["Live_Chat"][f"{p}_response_chatroom"] == "True"
         self.LC_cB_tw_chatroom.setChecked(enble)
         live_chat.Live_chat_parameters[f"{p}_response_chatroom"] = enble
         GUI_config["Live_Chat"][f"{p}_response_chatroom"] = str(enble)
