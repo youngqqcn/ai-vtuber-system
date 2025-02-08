@@ -146,7 +146,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         self.St_cB_Read_user_chat.setChecked(enble)
         ### read user chat
 
-        
+
         # user mic hotkey 1 using
         enble = str(GUI_config["Setting"]["user_mic_hotkey_1_using"]) == "True"
         mcrc.user_mic_status["mic_hotkey_1_using"] = enble
@@ -398,7 +398,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # LLM using
         llm_using = GUI_config["LLM"]["using"]
-        
+
         if llm_using == "Gemini":
             self.LLM_RB_Gemini.setChecked(True)
         elif llm_using == "GPT":
@@ -407,7 +407,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
             llm_using = "Gemini"
             GUI_config["LLM"]["using"] = llm_using
             self.LLM_RB_Gemini.setChecked(True)
-        
+
         aivtui.GUI_LLM_parameters["model"] = llm_using
         ### LLM using
 
@@ -589,8 +589,8 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         if gpt_timeout < 5:
             gpt_timeout = 5
-        elif gpt_timeout > 60:
-            gpt_timeout = 60
+        # elif gpt_timeout > 60:
+            # gpt_timeout
 
         GUI_config["LLM_GPT"]["timeout"] = str(gpt_timeout)
         self.LLM_SB_GPT_Timeout.setValue(gpt_timeout)
@@ -617,7 +617,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # TextToSpeech using
         TextToSpeech_using = GUI_config["TextToSpeech"]["using"]
-        
+
         if TextToSpeech_using == "EdgeTTS":
             self.TTS_RB_EdgeTTS.setChecked(True)
         elif TextToSpeech_using == "OpenAITTS":
@@ -626,7 +626,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
             self.TTS_RB_EdgeTTS.setChecked(True)
             TextToSpeech_using = "EdgeTTS"
             GUI_config["TextToSpeech"]["using"] = TextToSpeech_using
-        
+
         aivtui.GUI_TTS_Using = TextToSpeech_using
         ### TextToSpeech using
 
@@ -637,7 +637,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         voice_list = edgetts.filter_voices_by_gender(edgetts.EdgeTTS_Voice_dict, "All")
         for name in voice_list:
             self.TTS_CB_ET_Voice.addItem(name)
-        
+
         voice = GUI_config["EdgeTTS"]["voice"]
         if voice in voice_list:
             self.TTS_CB_ET_Voice.setCurrentText(voice)
@@ -651,7 +651,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # EdgeTTS pitch
         EdgeTTS_pitch = int(GUI_config["EdgeTTS"]["pitch"])
-        
+
         if EdgeTTS_pitch < -100:
             EdgeTTS_pitch = -100
         elif EdgeTTS_pitch > 100:
@@ -670,7 +670,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # EdgeTTS rate
         EdgeTTS_rate = int(GUI_config["EdgeTTS"]["rate"])
-        
+
         if EdgeTTS_rate < -100:
             EdgeTTS_rate = -100
         elif EdgeTTS_rate > 100:
@@ -689,7 +689,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # EdgeTTS volume
         EdgeTTS_volume = int(GUI_config["EdgeTTS"]["volume"])
-        
+
         if EdgeTTS_volume < -100:
             EdgeTTS_volume = -100
         elif EdgeTTS_volume > 100:
@@ -708,11 +708,11 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # EdgeTTS timeout
         EdgeTTS_timeout = int(GUI_config["EdgeTTS"]["timeout"])
-        
+
         if EdgeTTS_timeout < 5:
             EdgeTTS_timeout = 5
-        elif EdgeTTS_timeout > 60:
-            EdgeTTS_timeout = 60
+        # elif EdgeTTS_timeout > 60:
+            # EdgeTTS_timeout = 60
 
         GUI_config["EdgeTTS"]["timeout"] = str(EdgeTTS_timeout)
         self.TTS_SB_ET_Timeout.setValue(EdgeTTS_timeout)
@@ -725,7 +725,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         voice_list = openaitts.OpenAITTS_Voice_list
         for name in voice_list:
             self.TTS_CB_OT_Voice.addItem(name)
-        
+
         voice = GUI_config["OpenAITTS"]["voice"]
         if voice in voice_list:
             self.TTS_CB_OT_Voice.setCurrentText(voice)
@@ -741,7 +741,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         model_list = openaitts.OpenAITTS_Model_list
         for name in model_list:
             self.TTS_CB_OT_Model.addItem(name)
-        
+
         model = GUI_config["OpenAITTS"]["model"]
         if model in model_list:
             self.TTS_CB_OT_Model.setCurrentText(model)
@@ -825,7 +825,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # whisper max tokens
         tokens = int(GUI_config["Whisper"]["max_tokens"])
-        
+
         if tokens < 0:
             tokens = 0
         elif tokens > 9999:
@@ -839,7 +839,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # whisper temperature
         whisper_temp = float(GUI_config["Whisper"]["temperature"])
-        
+
         if whisper_temp < 0:
             whisper_temp = 0.0
         elif whisper_temp > 1:
@@ -854,7 +854,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # whisper timeout
         whisper_timeout = int(GUI_config["Whisper"]["timeout"])
-        
+
         if whisper_timeout < 5:
             whisper_timeout = 5
         elif whisper_timeout > 60:
@@ -964,7 +964,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         self.OBS_DSB_cn_English_char_length.setValue(en_char_len)
         obsws.OBS_chat_now_sub_parameters["sub_english_char_length"] = en_char_len
         ### OBS Chat now sub english char length
-        
+
 
         # OBS Chat now sub base line count
         sub_blc = int(GUI_config["OBS_Chat_now_sub"]["sub_base_line_count"])
@@ -1096,7 +1096,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         self.OBS_DSB_aa_English_char_length.setValue(en_char_len)
         obsws.OBS_ai_ans_sub_parameters["sub_english_char_length"] = en_char_len
         ### OBS AI ans sub english char length
-        
+
 
         # OBS AI ans sub base line count
         sub_blc = int(GUI_config["OBS_AI_ans_sub"]["sub_base_line_count"])
@@ -1191,7 +1191,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         # VTSP sentiment analysis
         enble = GUI_config["VTube_Studio_Plug"]["sentiment_analysis"] == "True"
-        
+
         self.VTSP_cB_Sentiment_analysis.setChecked(enble)
         vtsp.AIVT_hotkeys_parameters["sentiment_analysis"] = enble
 
@@ -1413,7 +1413,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         GUI_cha = GUI_Conversation_History_appender(self)
         GUI_cha.signal_Conversation_History_append.connect(self.Conversation_History_append)
         GUI_cha.start()
-        
+
         print("\n----------\n")
 
 
@@ -1661,7 +1661,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
             TW_lc = GUI_TW_LiveChat(self)
             TW_lc.signal_Twitch_live_chat_disconnect.connect(self.Twitch_live_chat_disconnect)
             TW_lc.start()
-            
+
         else:
             print("!!! Twitch Live Chat Disconnect !!!\n")
             live_chat.Live_Chat_Status["Twitch_live_chat"] = False
@@ -1683,7 +1683,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
             oc = GUI_OBSWS_connect(self)
             oc.signal_OBSWS_connect_fail.connect(self.mOBSWS_unChecked)
             oc.start()
-        
+
         elif not self.mOBSws.isChecked() and obsws.OBS_Connected:
             od = GUI_OBSWS_disconnect(self)
             od.start()
@@ -1771,12 +1771,12 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         palette = self.UC_Bt_Mic.palette()
         palette.setColor(QtGui.QPalette.ColorRole.ButtonText, QtGui.QColor(0, 128, 0)) #green
         self.UC_Bt_Mic.setPalette(palette)
-    
+
     def UserChat_Mic_indicator_recording(self):
         palette = self.UC_Bt_Mic.palette()
         palette.setColor(QtGui.QPalette.ColorRole.ButtonText, QtGui.QColor(255, 208, 67)) #yellow
         self.UC_Bt_Mic.setPalette(palette)
-    
+
     def UserChat_Mic_indicator_off(self):
         palette = self.UC_Bt_Mic.palette()
         palette.setColor(QtGui.QPalette.ColorRole.ButtonText, QtGui.QColor(225, 0, 0)) #red
@@ -1789,7 +1789,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
     def UserChat_Enter(self):
         user_chat_text = self.UC_TE_Input.toPlainText()
-        
+
         if user_chat_text != "":
             uc_role = self.UC_CB_Role_select.currentText()
 
@@ -1801,7 +1801,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
                 else:
                     user_chat_text_llm = f"{self.UC_LE_username.text()} : {user_chat_text}"
                     user_chat_text_p = f"{self.UC_LE_username.text()} :\n{user_chat_text}"
-                
+
                 UC = GUI_User_Chat(self)
                 UC.GUI_UserChat_Role = uc_role
                 UC.GUI_UserChat_Input = user_chat_text_llm
@@ -1906,7 +1906,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         GUI_config["Setting"]["tab_position"] = tabp
 
     def Setting_Window_opacity(self):
-        
+
         opacity= float(self.St_HS_Window_opacity.value()/100)
         self.setWindowOpacity(opacity)
         aprint("GUI window opacity = " + str(self.St_HS_Window_opacity.value()) + "%")
@@ -2083,7 +2083,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         enble = self.LC_cB_yt_vip.isChecked()
         live_chat.Live_chat_parameters[f"{p}_response_vip"] = enble
         GUI_config["Live_Chat"][f"{p}_response_vip"] = str(enble)
-    
+
     def YouTube_response_individual(self):
         global GUI_config
         p = "yt"
@@ -2091,7 +2091,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         live_chat.Live_chat_parameters[f"{p}_response_individual"] = enble
         GUI_config["Live_Chat"][f"{p}_response_individual"] = str(enble)
 
-    
+
     def YouTube_wait_list_max(self):
         global GUI_config
         p = "yt"
@@ -2165,7 +2165,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         enble = self.LC_cB_tw_vip.isChecked()
         live_chat.Live_chat_parameters[f"{p}_response_vip"] = enble
         GUI_config["Live_Chat"][f"{p}_response_vip"] = str(enble)
-    
+
     def Twitch_response_individual(self):
         global GUI_config
         p = "tw"
@@ -2173,7 +2173,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         live_chat.Live_chat_parameters[f"{p}_response_individual"] = enble
         GUI_config["Live_Chat"][f"{p}_response_individual"] = str(enble)
 
-    
+
     def Twitch_wait_list_max(self):
         global GUI_config
         p = "tw"
@@ -2402,7 +2402,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
                 GUI_config["EdgeTTS"]["voice_male"] = voice
             else:
                 GUI_config["EdgeTTS"]["voice_Female"] = voice
-                voice = GUI_config["EdgeTTS"]["voice_male"] 
+                voice = GUI_config["EdgeTTS"]["voice_male"]
 
         elif self.TTS_CB_ET_Gender.currentText() == "Female":
             voice_list = edgetts.filter_voices_by_gender(edgetts.EdgeTTS_Voice_dict, "Female")
@@ -2411,7 +2411,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
             else:
                 GUI_config["EdgeTTS"]["voice_male"] = voice
                 voice = GUI_config["EdgeTTS"]["voice_Female"]
-        
+
         else:
             voice_list = edgetts.filter_voices_by_gender(edgetts.EdgeTTS_Voice_dict, "All")
 
@@ -2484,7 +2484,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
     def OpenAITTS_speed(self):
         global GUI_config
-        openaitts_speed = round(self.TTS_DSB_OT_Speed.value(), 2) 
+        openaitts_speed = round(self.TTS_DSB_OT_Speed.value(), 2)
         GUI_config["OpenAITTS"]["speed"] = str(openaitts_speed)
         openaitts.openaitts_parameters["speed"] = openaitts_speed
         aprint(f"OpenAITTS speed: {openaitts_speed}")
@@ -2572,7 +2572,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
             value = 0.0
         elif value > 1:
             value = 1.0
-        
+
         whisper.whisper_parameters["temperature"] = value
         whisper_api.whisper_parameters["temperature"] = value
         GUI_config["Whisper"]["temperature"] = str(value)
@@ -3164,7 +3164,7 @@ class GUI_User_Chat(QtCore.QThread):
 
         if self.GUI_UserChat_Role == "user":
             llm_ans = queue.Queue()
-            
+
             llm_rt = threading.Thread(target=aivtui.LLM_Request_thread, args=(ans_requst, llm_ans, ))
             llm_rt.start()
             llm_rt.join()

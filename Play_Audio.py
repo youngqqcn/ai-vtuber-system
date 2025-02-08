@@ -8,7 +8,8 @@ os.environ["PATH"] += os.pathsep + bin_dir
 
 import pyaudio
 from pydub import AudioSegment
-ffmpeg_path = os.path.join(bin_dir, "ffmpeg.exe")
+# ffmpeg_path = os.path.join(bin_dir, "ffmpeg.exe")
+ffmpeg_path = '/usr/bin/ffmpeg'
 AudioSegment.converter = ffmpeg_path
 
 

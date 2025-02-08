@@ -5,7 +5,7 @@ import threading
 import time
 import random
 import re
-import copy 
+import copy
 import math
 import datetime
 sys.stdout = open(sys.stdout.fileno(), mode="w", encoding="utf8", buffering=1)
@@ -95,7 +95,7 @@ def conversation_character_prompt_change(Using_character_name, command=None):
     if len(conversation) < len(AIVT_Character_prompt_filenames):
         print("The conversation does not have enough entries to replace.")
         return
-    
+
     for i, filename in enumerate(AIVT_Character_prompt_filenames):
         path = os.path.join(AIVT_Character_path, Using_character_name, filename)
         try:
@@ -243,7 +243,7 @@ def LLM_Request_thread(ans_request, llm_ans=None):
 
         llm_model_name = ""
         token_max = 0
-        
+
         if GUI_LLM_parameters["model"] == "Gemini":
             llm_model_name  = gimini_api.gemini_parameters["model"]
             token_max = gimini_api.gemini_parameters["max_input_tokens"] - 10
@@ -282,7 +282,7 @@ def LLM_Request_thread(ans_request, llm_ans=None):
                 print("!!! Plz Increse Max Input Tokens Or Reduce The Prompt !!!")
                 llm_ans.put("")
                 return
-            
+
             conversation.pop(6)
             conversation_for_llm.pop(6)
             token_now = tokenC.num_tokens_from_conversation(conversation_for_llm, llm_model_name)
@@ -368,7 +368,7 @@ def subtitles_speak_checker():
                         sst_arg["ai_name"],
                         ),
                     ).start()
-                
+
             except Exception as e:
                 print(f"\n{e}\n")
 
@@ -399,7 +399,7 @@ def subtitles_speak_thread(chat_role, chat_now, ai_ans, ai_name):
     else:
         emo_state = ""
 
-    
+
     chat_now_tts_path = ""
     if read_chat_now:
         chat_now_tts_path = queue.Queue()
@@ -486,7 +486,7 @@ def tts_request_thread(tts_text, tts_path):
                 full_filename = f"{base_filename}_{counter}{file_extension}"
                 full_path = os.path.join(file_path, full_filename)
                 counter += 1
-            
+
             return full_path
 
         file_path = "Audio/tts"
@@ -494,11 +494,15 @@ def tts_request_thread(tts_text, tts_path):
         if GUI_TTS_Using == "EdgeTTS":
             file_extension = ".mp3"
         elif GUI_TTS_Using == "OpenAITTS":
-            file_extension = ".wav"
+            # file_extension = ".wav"
+            file_extension = ".mp3"
         else:
             file_extension = ".mp3"
 
         unique_filename = generate_unique_filename(file_path, file_name, file_extension)
+
+        # 把目录创建出来
+        os.makedirs(os.path.dirname(unique_filename), exist_ok=True)
 
         if GUI_TTS_Using == "EdgeTTS":
             output_path = unique_filename
@@ -581,7 +585,7 @@ def Subtitles_formatter_v3(text, max_length, english_char_length, base_line_coun
                 Predicted_lines.append(line[:max_length])
                 line = line[max_length:]
             Predicted_lines.append(line)
-        
+
         Predicted_line_count = len(Predicted_lines)
         #print(f'\nPredicted line count: {Predicted_line_count}\n')
 
@@ -592,7 +596,7 @@ def Subtitles_formatter_v3(text, max_length, english_char_length, base_line_coun
         new_max_length = max_length * line_count / base_line_count
         #print(f'Iteration BASE: line_count={line_count}, new_max_length={new_max_length}')
         result = split_line_text(lines, math.ceil(new_max_length), english_char_length, line_count)
-    
+
         iteration = 1
         prev_line_count = None
         #print(str(len(result) != line_count) + " -> len(result) != line_count")
@@ -628,24 +632,24 @@ def Subtitles_formatter_v3(text, max_length, english_char_length, base_line_coun
         new_max_length = max_length * line_count / base_line_count
         #print(f'fix iteration parameters: line_count={line_count}, new_max_length={new_max_length}')
         result = split_line_text(lines, math.ceil(new_max_length), english_char_length, line_count)
-    
+
         final_iteration_line_count = len(result)
         #print(f'\nFinal result: line_count={final_iteration_line_count}, max_length={new_max_length}')
         #print(f'{result}')
         #print("\n----------\n")
         return '\n'.join(result)
-    
+
     def split_line_text(lines: str, max_length: int, english_char_length: float, line_count: int):
         global lines_fit_check
         result = []
         lines_fit_check = 0
         for line in lines:
-        
+
             while len(line) > 0:
                 #print(line)
                 actual_length = 0
                 split_index = 0
-            
+
                 for i, char in enumerate(line):
                     if re.match(r' [a-zA-Z]\(\)\[\]{}<>:;=，。！？；～,!?~;【】「」『』〔〕()┐┌ლ✧⁄／╧ﾉﾒ彡o｡丿•̥̥̥`´ﾟゞو', char):
                         actual_length += english_char_length
@@ -664,8 +668,8 @@ def Subtitles_formatter_v3(text, max_length, english_char_length, base_line_coun
                         if line[punctuation_index[-1]] in '【「『〔((┐┌ㄟ＼': #:：】」』〕)┌ლ✧⁄╧╧ﾉﾒ彡o｡丿
                             split_index = punctuation_index[-1]
                         else:
-                            split_index = punctuation_index[-1] + 1             
-                    
+                            split_index = punctuation_index[-1] + 1
+
                     #print(f'split_index {split_index}')
                     result.append(line[:split_index])
                     line = line[split_index:].lstrip()
@@ -700,7 +704,7 @@ def Subtitles_formatter_v2(text, max_length, english_char_length, base_line_coun
                 break
 
         return last_good_break if last_good_break > 0 else i
-    
+
     def process_line_splits(lines, max_length):
         new_lines = []
         for line in lines:
@@ -712,14 +716,14 @@ def Subtitles_formatter_v2(text, max_length, english_char_length, base_line_coun
                 line = line[break_index:].lstrip()
             new_lines.append(line.strip())
         return new_lines
-    
+
     lines = text.split('\n')
     processed_lines = []
     for line in lines:
         if line.strip() == '':
             continue
         processed_lines.append(line.strip())
-    
+
     iteration = 0
     while iteration < 10:
         new_lines = process_line_splits(processed_lines, max_length)
@@ -871,7 +875,7 @@ def subtitles_speak(
 
 
     if read_chat_now:
-        chat_now_read = threading.Thread(target=speaking, args=(chat_now_tts_path, ))  
+        chat_now_read = threading.Thread(target=speaking, args=(chat_now_tts_path, ))
         chat_now_read.start()
         chat_now_read.join()
 
@@ -903,7 +907,7 @@ def subtitles_speak(
                 )
             obst_cn_st.start()
             obst_cn_st.join()
-        
+
         if len(obs_chat_now_hide_sub_filter_names) > 0:
             obst_cn_fe_sd = threading.Thread(
                 target=obsws.Set_Source_Filter_Enabled,
@@ -922,7 +926,7 @@ def subtitles_speak(
 
 
     if obs_show_ai_ans:
-        
+
         if obsws.OBS_ai_ans_sub_parameters["remove_original_text_wrap"]:
             obs_ai_ans = ai_ans.replace('\n', ' ')
         else:
@@ -1034,7 +1038,7 @@ def subtitles_speak(
                     },
                 )
             obst_aa_fe_h.start()
-    
+
 
 
     try:
@@ -1055,7 +1059,7 @@ def speaking(audio_path, start_delay=0, end_delay=0):
 
     try:
         Play_Audio.PlayAudio(audio_path, ai_voice_output_device_name)
-    
+
     except Exception as e:
         print(f"!!! Play Audio Error !!!\n{e}")
 
@@ -1068,6 +1072,7 @@ lock_write_conversation_history = threading.Lock()
 def write_conversation_history(chat_now, subtitles):
     with lock_write_conversation_history:
         ConversationHistory_path = f"Text_files/ConversationHistory/{datetime.datetime.now().strftime('%Y-%m-%d')}.txt"
+        os.makedirs(os.path.dirname(ConversationHistory_path), exist_ok=True)
 
         with open(ConversationHistory_path, "a", encoding="utf-8") as outfile:
             outfile.write(f"\n{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S %p')}\n")
