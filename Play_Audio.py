@@ -66,12 +66,16 @@ def PlayAudio(audio_path, output_device_name, command=None):
 
     print("audio_path: {}".format(audio_path))
 
-    for i in range(0, 3):
-        if not os.path.exists(audio_path):
-            print("{}不存在".format(audio_path))
-            time.sleep(1)
-        else:
-            break
+
+    if os.path.exists(audio_path):
+        print("{}存在".format(audio_path))
+    else:
+        for i in range(0, 3):
+            if not os.path.exists(audio_path):
+                print("{}不存在".format(audio_path))
+                time.sleep(1)
+            else:
+                break
 
     # 加载 MP3 文件
     audio = AudioSegment.from_mp3(audio_path)
