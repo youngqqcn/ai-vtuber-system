@@ -21,7 +21,7 @@ OBS_WebSockets_password = "azL8jYD6lNqxib91"
 # OBS_WebSockets_password = "ONiSTeJO7qwW1VBg"
 
 
-Twitch_user_name = "youngqqcn"
+Twitch_user_name = "cami_ai_vtuber"
 Twitch_token = "2fzcvi6rgk0lv9it7ygy4woh0xuqzw"
 
 
