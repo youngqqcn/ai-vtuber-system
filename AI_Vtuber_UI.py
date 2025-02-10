@@ -461,7 +461,7 @@ def subtitles_speak_thread(chat_role, chat_now, ai_ans, ai_name):
                 os.remove(files[0])
                 files.pop(0)
 
-        file_path = "Audio/tts"
+        file_path = os.path.join("Audio", "tts")
         file_max = 10
         manage_files_by_count(file_path, file_max)
 
@@ -490,7 +490,7 @@ def tts_request_thread(tts_text, tts_path):
 
             return full_path
 
-        file_path = "Audio/tts"
+        file_path = os.path.join("Audio", "tts")
         file_name = f"{GUI_TTS_Using}"
         if GUI_TTS_Using == "EdgeTTS":
             file_extension = ".mp3"
