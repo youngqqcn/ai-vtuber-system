@@ -109,12 +109,12 @@ def run_with_timeout_OpenAI_GPT_API(
         if command != "no_print":
             end_time = time.time()
             print("\nOpenAI_GPT_Answer ----------\n")
-            print(f"Model: {model.get()}")
-            print(f"Duration: {end_time - start_time:.2f}s")
-            print(f"Prompt tokens: {prompt_tokens.get()}")
-            print(f"Completion tokens: {completion_tokens.get()}")
-            print(f"Total tokens: {total_tokens.get()}\n")
-            print(f"{chatQ}\n")
+            # print(f"Model: {model.get()}")
+            # print(f"Duration: {end_time - start_time:.2f}s")
+            # print(f"Prompt tokens: {prompt_tokens.get()}")
+            # print(f"Completion tokens: {completion_tokens.get()}")
+            # print(f"Total tokens: {total_tokens.get()}\n")
+            # print(f"{chatQ}\n")
             print(f"GPT Answer : {llm_result}")
             print("\n----------\n")
 
