@@ -142,11 +142,15 @@ def OpenAI_GPT_API_thread(
         base_url="https://api.deepseek.com",
     )
 
-    
+
 
     reT = 0
     while reT < retry:
         reT += 1
+
+        # 暂时不请求deepseek
+        ans.put("Hello, I'm Cami, nice to meet you. I'm testing now.")
+        return
 
         try:
             response = g_client.chat.completions.create(
