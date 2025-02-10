@@ -148,4 +148,5 @@ def Get_available_output_devices_ID(devices_name):
 
 if __name__ == "__main__":
     # Available_output_devices()
-    PlayAudio('Audio/tts/20250208204536_OpenAITTS.mp3', '')
+    # PlayAudio('Audio/tts/20250208204536_OpenAITTS.mp3', '')
+    PlayAudio(os.path.join('Audio', 'tts', '20250210111621_OpenAITTS.mp3'), '')
