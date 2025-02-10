@@ -1,5 +1,6 @@
 import os
 import io
+import time
 import wave
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -63,9 +64,14 @@ def PlayAudio_bak(audio_path, output_device_name, command=None):
 def PlayAudio(audio_path, output_device_name, command=None):
     global play_audio_parameters
 
-    # if not os.path.exists(audio_path):
-        # str(audio_path).split('/')
-    print('audio_path: {}'.format(audio_path))
+    print("audio_path: {}".format(audio_path))
+
+    for i in range(0, 3):
+        if not os.path.exists(audio_path):
+            print("{}不存在".format(audio_path))
+            time.sleep(1)
+        else:
+            break
 
     # 加载 MP3 文件
     audio = AudioSegment.from_mp3(audio_path)
