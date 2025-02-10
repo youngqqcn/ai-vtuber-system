@@ -14,7 +14,7 @@ from pydub.playback import play
 
 # ffmpeg_path = os.path.join(bin_dir, "ffmpeg.exe")
 ffmpeg_path = "/usr/bin/ffmpeg"
-AudioSegment.converter = ffmpeg_path
+# AudioSegment.converter = ffmpeg_path
 
 
 play_audio_parameters = {
@@ -147,4 +147,5 @@ def Get_available_output_devices_ID(devices_name):
 
 
 if __name__ == "__main__":
-    Available_output_devices()
+    # Available_output_devices()
+    PlayAudio('Audio/tts/20250208204536_OpenAITTS.mp3', '')
