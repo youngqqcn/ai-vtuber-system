@@ -63,6 +63,10 @@ def PlayAudio_bak(audio_path, output_device_name, command=None):
 def PlayAudio(audio_path, output_device_name, command=None):
     global play_audio_parameters
 
+    # if not os.path.exists(audio_path):
+        # str(audio_path).split('/')
+    print('audio_path: {}'.format(audio_path))
+
     # 加载 MP3 文件
     audio = AudioSegment.from_mp3(audio_path)
 

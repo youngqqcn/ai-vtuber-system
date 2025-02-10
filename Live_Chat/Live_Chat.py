@@ -317,7 +317,7 @@ def Twitch_live_chat_pick_comments():
     print('====Twitch_live_chat_pick_comments===')
 
     while Live_Chat_Status["Twitch_live_chat"]:
-        print("Twitch_live_chat_pick_comments Live_Chat_LLM_wait_list 长度 {}".format(len(Live_Chat_LLM_wait_list)))
+        # print("Twitch_live_chat_pick_comments Live_Chat_LLM_wait_list 长度 {}".format(len(Live_Chat_LLM_wait_list)))
         if Live_chat_parameters["tw_response_chatroom"] and TW_LC_wait_list:
             c = len(TW_LC_wait_list)
             chat_list = []
@@ -433,8 +433,8 @@ def Live_Chat_LLM_checker():
     # Live_Chat_LLM_wait_list = []
 
     while Live_Chat_Status["YouTube_live_chat"] or Live_Chat_Status["Twitch_live_chat"]:
-        print("检查评论列表")
-        print("Live_Chat_LLM_wait_list 长度 {}".format(len(Live_Chat_LLM_wait_list)))
+        # print("检查评论列表")
+        # print("Live_Chat_LLM_wait_list 长度 {}".format(len(Live_Chat_LLM_wait_list)))
         if Live_Chat_LLM_wait_list:
             ans_requst = Live_Chat_LLM_wait_list.pop(0)
             chat_role = ans_requst["role"]
