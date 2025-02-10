@@ -149,9 +149,9 @@ def OpenAI_GPT_API_thread(
         reT += 1
 
         # 暂时不请求deepseek
-        print('暂时不请求deepseek, 直接返回')
-        ans.put("Hello, I'm Cami, nice to meet you. I'm testing now.")
-        return
+        # print('暂时不请求deepseek, 直接返回')
+        # ans.put("Hello, I'm Cami, nice to meet you. I'm testing now.")
+        # return
 
         try:
             response = g_client.chat.completions.create(
