@@ -122,8 +122,16 @@ def YouTube_live_chat_get_comments():
                             if Live_chat_parameters["yt_live_chat_log"]:
                                 print(f"!!! *{chat_author}* comment beyond max tokens - YouTube Live Chat !!!")
 
+
                     if chat_list:
                         YT_LC_wait_list.extend(chat_list)
+
+                        # 直接插入到 Live_Chat_LLM_wait_list, 不过滤
+                        for d in chat_list:
+                            for k in d:
+                                Live_Chat_LLM_wait_list.append({'role':'youtube_chat', 'content':d[k]})
+
+
                         if Live_chat_parameters["yt_live_chat_log"]:
                             chat_c = "\n\n".join([f"{key} : {d[key]}" for d in chat_list for key in d])
                             print(f"\nYouTube Live Chat ----------\n\n{chat_c}\n\n----------\n")
@@ -396,10 +404,11 @@ def YouTube_LiveChat_boot_on():
     YT_lcgc = threading.Thread(target=YouTube_live_chat_get_comments)
     YT_lcgc.start()
 
-    YT_lcpc = threading.Thread(target=YouTube_live_chat_pick_comments)
-    YT_lcpc.start()
+    # YT_lcpc = threading.Thread(target=YouTube_live_chat_pick_comments)
+    # YT_lcpc.start()
 
-    if not Live_Chat_Status["llm_request_checker"]:
+    # if not Live_Chat_Status["llm_request_checker"]:
+    if True:
         Live_Chat_Status["llm_request_checker"] = True
         LC_llmc = threading.Thread(target=Live_Chat_LLM_checker)
         LC_llmc.start()
