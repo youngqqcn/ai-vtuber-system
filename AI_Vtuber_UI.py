@@ -17,7 +17,7 @@ import TextToSpeech.edgeTTS as edgeTTS
 import TextToSpeech.OpenAITTS as openaiTTS
 import VTubeStudioPlugin.VTubeStudioPlugin as vtsp
 import OBS_websocket.OBS_websocket as obsws
-import OpenAI.whisper.OpenAI_Whisper as whisper
+# import OpenAI.whisper.OpenAI_Whisper as whisper
 import OpenAI.whisper.OpenAI_Whisper_API as whisper_api
 import OpenAI.gpt.OpenAI_GPT_API as gpt_api
 import Google.gemini.GoogleAI_Gemini_API as gimini_api
@@ -179,14 +179,15 @@ def OpenAI_Whisper_thread(audio_frames, command=None):
         aprint("* Whisper Transcribing... *")
 
         if OpenAI_Whisper_Inference == "Local":
-            ans_OpenAI_Whisper_text = whisper.run_with_timeout_OpenAI_Whisper(
-                audio_path = user_mic_audio_path,
-                audio_language = whisper.whisper_parameters["user_mic_language"],
-                prompt = whisper.whisper_parameters["prompt"],
-                max_tokens = whisper.whisper_parameters["max_tokens"],
-                temperature = whisper.whisper_parameters["temperature"],
-                timeout = whisper.whisper_parameters["timeout"]
-            )
+            # ans_OpenAI_Whisper_text = whisper.run_with_timeout_OpenAI_Whisper(
+            #     audio_path = user_mic_audio_path,
+            #     audio_language = whisper.whisper_parameters["user_mic_language"],
+            #     prompt = whisper.whisper_parameters["prompt"],
+            #     max_tokens = whisper.whisper_parameters["max_tokens"],
+            #     temperature = whisper.whisper_parameters["temperature"],
+            #     timeout = whisper.whisper_parameters["timeout"]
+            # )
+            pass
 
         else:
             ans_OpenAI_Whisper_text = whisper_api.run_with_timeout_OpenAI_Whisper_API(

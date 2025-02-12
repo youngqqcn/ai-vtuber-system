@@ -1,5 +1,6 @@
 import sys
 import os
+import traceback
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import time
 import threading
@@ -235,6 +236,7 @@ def Twitch_live_chat_connect(live_chat_status, tw_lc_raw_list):
 
     except Exception as e:
         print(f"!!! Twitch {AIVT_Config.Twitch_user_name} Disconnected !!!\n\n{e}\n\n")
+        traceback.print_exc()
         live_chat_status['Twitch_live_chat'] = False
 
 class Twitch_live_chat(twitch_commands.Bot):

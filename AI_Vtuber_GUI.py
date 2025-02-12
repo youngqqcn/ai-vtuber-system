@@ -12,7 +12,7 @@ import GUI_control_panel.GUI_py.AI_Vtuber_control_panel_ui_pysd6 as gui
 import AI_Vtuber_UI as aivtui
 import VTubeStudioPlugin.VTubeStudioPlugin as vtsp
 import OBS_websocket.OBS_websocket as obsws
-import OpenAI.whisper.OpenAI_Whisper as whisper
+# import OpenAI.whisper.xOpenAI_Whisper as whisper
 import OpenAI.whisper.OpenAI_Whisper_API as whisper_api
 import OpenAI.gpt.OpenAI_GPT_API as gpt
 import TextToSpeech.edgeTTS as edgetts
@@ -791,35 +791,35 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
 
         # whisper model name list
-        Available_model_names_list = whisper.get_available_model_names_list()
-        for name in Available_model_names_list:
-            self.Wh_CB_Whisper_model_name.addItem(name)
+        # Available_model_names_list = whisper.get_available_model_names_list()
+        # for name in Available_model_names_list:
+        #     self.Wh_CB_Whisper_model_name.addItem(name)
 
-        gui_selected_model = str(GUI_config["Whisper"]["model_name"])
-        if gui_selected_model in Available_model_names_list:
-            self.Wh_CB_Whisper_model_name.setCurrentText(gui_selected_model)
-        else:
-            gui_selected_model = self.Wh_CB_Whisper_model_name.currentText()
-            GUI_config["Whisper"]["model_name"] = gui_selected_model
+        # gui_selected_model = str(GUI_config["Whisper"]["model_name"])
+        # if gui_selected_model in Available_model_names_list:
+        #     self.Wh_CB_Whisper_model_name.setCurrentText(gui_selected_model)
+        # else:
+        #     gui_selected_model = self.Wh_CB_Whisper_model_name.currentText()
+        #     GUI_config["Whisper"]["model_name"] = gui_selected_model
 
-        whisper.whisper_status["gui_selected_model"] = gui_selected_model
+        # whisper.whisper_status["gui_selected_model"] = gui_selected_model
         ### whisper model name list
 
 
         # whisper language
-        language_names = [name for name in whisper.Whisper_LANGUAGES.keys()]
-        for name in language_names:
-            self.Wh_CB_Language.addItem(name)
+        # language_names = [name for name in whisper.Whisper_LANGUAGES.keys()]
+        # for name in language_names:
+        #     self.Wh_CB_Language.addItem(name)
 
-        whisper_lang = str(GUI_config["Whisper"]["language"])
-        if whisper_lang in language_names:
-            self.Wh_CB_Language.setCurrentText(whisper_lang)
-        else:
-            whisper_lang = self.Wh_CB_Language.currentText()
-            GUI_config["Whisper"]["language"] = whisper_lang
+        # whisper_lang = str(GUI_config["Whisper"]["language"])
+        # if whisper_lang in language_names:
+        #     self.Wh_CB_Language.setCurrentText(whisper_lang)
+        # else:
+        #     whisper_lang = self.Wh_CB_Language.currentText()
+        #     GUI_config["Whisper"]["language"] = whisper_lang
 
-        whisper.whisper_parameters["user_mic_language"] = whisper_lang
-        whisper_api.whisper_parameters["user_mic_language"] = whisper_lang
+        # whisper.whisper_parameters["user_mic_language"] = whisper_lang
+        # whisper_api.whisper_parameters["user_mic_language"] = whisper_lang
         ### whisper language
 
 
@@ -833,7 +833,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         GUI_config["Whisper"]["max_tokens"] = str(tokens)
         self.Wh_SB_Max_tokens.setValue(tokens)
-        whisper.whisper_parameters["max_tokens"] = tokens
+        # whisper.whisper_parameters["max_tokens"] = tokens
         ### whisper max tokens
 
 
@@ -847,7 +847,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         GUI_config["Whisper"]["temperature"] = str(whisper_temp)
         self.Wh_DSB_Temperature.setValue(whisper_temp)
-        whisper.whisper_parameters["temperature"] = whisper_temp
+        # whisper.whisper_parameters["temperature"] = whisper_temp
         whisper_api.whisper_parameters["temperature"] = whisper_temp
         ### whisper temperature
 
@@ -862,7 +862,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
 
         GUI_config["Whisper"]["timeout"] = str(whisper_timeout)
         self.Wh_SB_Timeout.setValue(whisper_timeout)
-        whisper.whisper_parameters["timeout"] = whisper_timeout
+        # whisper.whisper_parameters["timeout"] = whisper_timeout
         whisper_api.whisper_parameters["timeout"] = whisper_timeout
         ### whisper timeout
 
@@ -870,7 +870,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         # whisper prompt
         whisper_prompt = str(GUI_config["Whisper"]["prompt"])
         self.Wh_TE_Prompt.setPlainText(whisper_prompt)
-        whisper.whisper_parameters["prompt"] = whisper_prompt
+        # whisper.whisper_parameters["prompt"] = whisper_prompt
         whisper_api.whisper_parameters["prompt"] = whisper_prompt
         ### whisper prompt
 
@@ -2523,20 +2523,20 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
     def Whisper_Refresh_available_whisper_model(self):
         global GUI_config
         aprint("Refresh available whisper model list")
-        Available_whisper_model_list = whisper.get_available_model_names_list()
+        # Available_whisper_model_list = whisper.get_available_model_names_list()
 
-        whisper_status_gui_selected_model = whisper.whisper_status["gui_selected_model"]
+        # whisper_status_gui_selected_model = whisper.whisper_status["gui_selected_model"]
 
-        self.Wh_CB_Whisper_model_name.clear()
+        # self.Wh_CB_Whisper_model_name.clear()
 
-        for name in Available_whisper_model_list:
-            self.Wh_CB_Whisper_model_name.addItem(name)
+        # for name in Available_whisper_model_list:
+        #     self.Wh_CB_Whisper_model_name.addItem(name)
 
-        if whisper_status_gui_selected_model in Available_whisper_model_list:
-            self.Wh_CB_Whisper_model_name.setCurrentText(whisper_status_gui_selected_model)
-        else:
-            whisper_status_gui_selected_model = self.Wh_CB_Whisper_model_name.currentText()
-            whisper.whisper_status["gui_selected_model"] = whisper_status_gui_selected_model
+        # if whisper_status_gui_selected_model in Available_whisper_model_list:
+        #     self.Wh_CB_Whisper_model_name.setCurrentText(whisper_status_gui_selected_model)
+        # else:
+        #     whisper_status_gui_selected_model = self.Wh_CB_Whisper_model_name.currentText()
+        #     whisper.whisper_status["gui_selected_model"] = whisper_status_gui_selected_model
 
         GUI_config["Whisper"]["model_name"] = whisper_status_gui_selected_model
 
@@ -2560,7 +2560,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
     def Whisper_max_tokens(self):
         global GUI_config
         value = self.Wh_SB_Max_tokens.value()
-        whisper.whisper_parameters["max_tokens"] = value
+        # whisper.whisper_parameters["max_tokens"] = value
         GUI_config["Whisper"]["max_tokens"] = str(value)
         aprint(f"Whisper max tokens: {value}")
 
@@ -2573,7 +2573,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
         elif value > 1:
             value = 1.0
 
-        whisper.whisper_parameters["temperature"] = value
+        # whisper.whisper_parameters["temperature"] = value
         whisper_api.whisper_parameters["temperature"] = value
         GUI_config["Whisper"]["temperature"] = str(value)
         aprint(f"Whisper temperature: {value}")
@@ -2581,7 +2581,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
     def Whisper_timeout(self):
         global GUI_config
         value = self.Wh_SB_Timeout.value()
-        whisper.whisper_parameters["timeout"] = value
+        # whisper.whisper_parameters["timeout"] = value
         whisper_api.whisper_parameters["timeout"] = value
         GUI_config["Whisper"]["timeout"] = str(value)
         aprint(f"Whisper timeout: {value}s")
@@ -2589,7 +2589,7 @@ class AI_Vtuber_GUI(gui.Ui_MainWindow, QtWidgets.QMainWindow, QtWidgets.QPushBut
     def Whisper_prompt(self):
         global GUI_config
         text = self.Wh_TE_Prompt.toPlainText()
-        whisper.whisper_parameters["prompt"] = text
+        # whisper.whisper_parameters["prompt"] = text
         whisper_api.whisper_parameters["prompt"] = text
         GUI_config["Whisper"]["prompt"] = str(text)
 
@@ -3051,8 +3051,8 @@ class GUI_User_Mic(QtCore.QThread):
         super().__init__(parent)
 
     def run(self):
-        if aivtui.OpenAI_Whisper_Inference == "Local" and whisper.whisper_status["loaded_model"] == "":
-            whisper.load_model(model_name=whisper.whisper_status["gui_selected_model"])
+        # if aivtui.OpenAI_Whisper_Inference == "Local" and whisper.whisper_status["loaded_model"] == "":
+        #     whisper.load_model(model_name=whisper.whisper_status["gui_selected_model"])
 
         mcrc.Audio_frames_out = []
         mcrc.Mic_hotkey_pressed = False
@@ -3338,7 +3338,7 @@ class Whisper_model_load(QtCore.QThread):
 
     def run(self):
         global GUI_config
-        whisper.load_model(model_name=whisper.whisper_status["gui_selected_model"])
+        # whisper.load_model(model_name=whisper.whisper_status["gui_selected_model"])
 
 
 class Whisper_model_unload(QtCore.QThread):
@@ -3348,7 +3348,7 @@ class Whisper_model_unload(QtCore.QThread):
 
     def run(self):
         global GUI_config
-        whisper.unload_model()
+        # whisper.unload_model()
 
 
 
