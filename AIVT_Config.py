@@ -5,9 +5,9 @@ google_api_key = ""
 
 
 # amazon win10
-OBS_WebSockets_ip = "172.16.1.137"
+OBS_WebSockets_ip = "192.168.110.211"
 OBS_WebSockets_port = 4455
-OBS_WebSockets_password = "azL8jYD6lNqxib91"
+OBS_WebSockets_password = "FYeMv1zAf94nuVmt"
 
 # streamlabs
 # OBS_WebSockets_ip = "172.16.1.137"
