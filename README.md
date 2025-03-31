@@ -1,3 +1,9 @@
+## 效果展示
+- Youtube直播回放: https://www.youtube.com/watch?v=SoXnqO0KOpo&ab_channel=yqqyoung
+
+![](https://raw.githubusercontent.com/youngqqcn/repo4picgo/master/img/vtuber_cami.jpg)
+
+
 ## 技术方案
 > 原始项目: https://github.com/AIVTDevPKevin/AI-VTuber-System
 
