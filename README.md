@@ -6,6 +6,7 @@
 - 硬件配置
   - GPU 是必须的， VTube Studio 和 OBS 都需要用到显卡进行视频渲染
   - 外网服务器(Windows)
+    - 要做7*24直播，最好使用境外Windows服务器,延迟低,直播稳定
 
 - 实施步骤
   - 使用Live2D软件制作VTuber的形象模型
