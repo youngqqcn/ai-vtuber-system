@@ -4,6 +4,10 @@ openai_api_key = ""
 google_api_key = ""
 
 
+# 使用 deepseek api
+deepseek_api_key = ""
+
+
 # amazon win10
 OBS_WebSockets_ip = "192.168.110.211"
 OBS_WebSockets_port = 4455
